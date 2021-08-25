@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>TRƯỜNG THPT CHUYÊN HÀ NỘI - AMSTERDAM</title>
@@ -415,24 +415,24 @@
             <img src="{{URL::asset('/storage/logo.jpg')}}" alt="profile Pic" height="100" width="100">
         </div>
 
-        <form method="POST" action="/search">
+        <form method="POST" action="/search" accept-charset="utf-8">
             @csrf
             <div class="row mb-3">
-                <label for="inputfullname" class="col-sm-2 col-form-label">Họ tên học sinh(*)</label>
+                <label for="ipt-fullname" class="col-sm-2 col-form-label">Họ tên học sinh(*)</label>
                 <div class="col-sm-10">
-                    <input id="ipt-fullname" type="text" class="form-control" id="inputfullname">
+                    <input id="ipt-fullname" type="text" class="form-control" required>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="inputphone" class="col-sm-2 col-form-label">Số điện thoại(*)</label>
+                <label for="ipt-phone" class="col-sm-2 col-form-label">Số điện thoại(*)</label>
                 <div class="col-sm-10">
-                    <input id="ipt-phone" class="form-control" type="text" id="inputphone">
+                    <input id="ipt-phone" type="tel" class="form-control" pattern="0[0-9]{9}" required>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="inputdob" class="col-sm-2 col-form-label">Ngày sinh</label>
+                <label for="ipt-dob" class="col-sm-2 col-form-label">Ngày sinh</label>
                 <div class="col-sm-10">
-                    <input id="ipt-dob" class="form-control" id="inputdob" data-inputmask="'alias': 'date'">
+                    <input id="ipt-dob" class="form-control" data-inputmask="'alias': 'date'">
                 </div>
             </div>
             <div class="flex justify-center">
@@ -442,13 +442,20 @@
 
         @include('result')
 
-        <div id="no_result">
-            <p class="text-muted text-center mt-4">Rất tiếc, chúng tôi không tìm thấy thông tin học sinh phù hợp. Vui lòng thử lại.</p>
+        <div id="no_result" class="flex flex-column alert alert-secondary mt-3" role="alert">
+            <p class="text-muted text-center mt-4">
+                Rất tiếc, chúng tôi không tìm thấy thông tin học sinh phù hợp. Vui lòng kiểm tra lại các thông tin:
+            </p>
+            <ul>
+                <li>Họ tên tiếng Việt có dấu (bắt buộc)</li>
+                <li>Số điện thoại 10 số (bắt buộc)</li>
+                <li>Ngày sinh theo định dạng ngày/tháng/năm. Ví dụ: 02/09/2003</li>
+            </ul>
         </div>
 
         <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
             <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                Monster. Inc
+                Trường thpt chuyên Hà Nội - Amsterdam.
             </div>
         </div>
     </div>
@@ -462,7 +469,7 @@
         crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        $(":input").inputmask();
+        $("#ipt-dob").inputmask();
 
         $("#result").hide();
         $("#no_result").hide();
