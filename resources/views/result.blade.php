@@ -1,4 +1,4 @@
-<div id="result" class="flex flex-column mt-4">
+<div id="result" class="flex flex-column mt-4 hidden">
     <h5>Kết quả tìm kiếm: <span id="ho_ten">-</span></h5>
     <br>
     <strong>Bảng điểm</strong>

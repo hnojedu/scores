@@ -405,7 +405,7 @@
 
 <body class="antialiased">
 <div class="relative flex justify-center min-h-screen bg-gray-100 sm:items-center py-4 sm:pt-0">
-    <div class="max-w-6xl px-4 py-2 mx-auto sm:px-6 lg:px-8 min-h-screen">
+    <div class="max-w-6xl px-4 py-2 mx-auto sm:px-6 lg:px-8 min-h-screen flex-grow-1">
         <div class="flex flex-column justify-center mb-3 mt-3">
             <h3 class="text-center">TRA CỨU THÔNG TIN TUYỂN SINH VÀO LỚP 6</h3>
             <h5 class="text-center">Trường THPT Chuyên Hà Nội - Amsterdam năm học 2021 – 2022</h5>
@@ -419,19 +419,19 @@
             @csrf
             <div class="row mb-3">
                 <label for="ipt-fullname" class="col-sm-2 col-form-label">Họ tên học sinh(*)</label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <input id="ipt-fullname" type="text" class="form-control" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="ipt-phone" class="col-sm-2 col-form-label">Số điện thoại(*)</label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <input id="ipt-phone" type="tel" class="form-control" pattern="0[0-9]{9}" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="ipt-dob" class="col-sm-2 col-form-label">Ngày sinh</label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <input id="ipt-dob" class="form-control" data-inputmask="'alias': 'date'">
                 </div>
             </div>
@@ -442,7 +442,7 @@
 
         @include('result')
 
-        <div id="no_result" class="flex flex-column alert alert-secondary mt-3" role="alert">
+        <div id="no_result" class="flex flex-column alert alert-secondary mt-3 hidden" role="alert">
             <p class="text-muted text-center mt-4">
                 Rất tiếc, chúng tôi không tìm thấy thông tin học sinh phù hợp. Vui lòng kiểm tra lại các thông tin:
             </p>
@@ -470,9 +470,6 @@
 <script>
     $(document).ready(function () {
         $("#ipt-dob").inputmask();
-
-        $("#result").hide();
-        $("#no_result").hide();
 
         $("#btn-search").click(function (e) {
             e.preventDefault();
