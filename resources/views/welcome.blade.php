@@ -471,7 +471,7 @@
             e.preventDefault();
             $.ajax({
                 method: "POST",
-                url: "http://localhost/api/search",
+                url: "<?= config('app.url') . '/api/search'; ?>",
                 data: {
                     fullname: $("#ipt-fullname").val(),
                     dob: $("#ipt-dob").val(),
