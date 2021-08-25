@@ -405,7 +405,7 @@
 
 <body class="antialiased">
 <div class="relative flex justify-center min-h-screen bg-gray-100 sm:items-center py-4 sm:pt-0">
-    <div class="max-w-6xl px-4 py-2 mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-6xl px-4 py-2 mx-auto sm:px-6 lg:px-8 min-h-screen">
         <div class="flex flex-column justify-center mb-3 mt-3">
             <h3 class="text-center">TRA CỨU THÔNG TIN TUYỂN SINH VÀO LỚP 6</h3>
             <h5 class="text-center">Trường THPT Chuyên Hà Nội - Amsterdam năm học 2021 – 2022</h5>
