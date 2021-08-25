@@ -11,7 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Boostrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 
     <!-- Styles -->
@@ -294,7 +295,7 @@
             grid-template-columns: repeat(1, minmax(0, 1fr))
         }
 
-        @media (min-width:640px) {
+        @media (min-width: 640px) {
             .sm\:rounded-lg {
                 border-radius: .5rem
             }
@@ -341,7 +342,7 @@
             }
         }
 
-        @media (min-width:768px) {
+        @media (min-width: 768px) {
             .md\:border-t-0 {
                 border-top-width: 0
             }
@@ -355,14 +356,14 @@
             }
         }
 
-        @media (min-width:1024px) {
+        @media (min-width: 1024px) {
             .lg\:px-8 {
                 padding-left: 2rem;
                 padding-right: 2rem
             }
         }
 
-        @media (prefers-color-scheme:dark) {
+        @media (prefers-color-scheme: dark) {
             .dark\:bg-gray-800 {
                 --bg-opacity: 1;
                 background-color: #2d3748;
@@ -403,62 +404,97 @@
 </head>
 
 <body class="antialiased">
-    <div class="relative flex justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex justify-center mb-3 mt-3">
-                <h3>TRA CỨU THÔNG TIN TUYỂN SINH VÀO LỚP 6</h3>
+<div class="relative flex justify-center min-h-screen bg-gray-100 sm:items-center py-4 sm:pt-0">
+    <div class="max-w-6xl px-4 py-2 mx-auto sm:px-6 lg:px-8">
+        <div class="flex flex-column justify-center mb-3 mt-3">
+            <h3 class="text-center">TRA CỨU THÔNG TIN TUYỂN SINH VÀO LỚP 6</h3>
+            <h5 class="text-center">Trường THPT Chuyên Hà Nội - Amsterdam năm học 2021 – 2022</h5>
+        </div>
+
+        <div class="flex justify-center mb-3 mt-3">
+            <img src="{{URL::asset('/storage/logo.jpg')}}" alt="profile Pic" height="100" width="100">
+        </div>
+
+        <form method="POST" action="/search">
+            @csrf
+            <div class="row mb-3">
+                <label for="inputfullname" class="col-sm-2 col-form-label">Họ tên học sinh(*)</label>
+                <div class="col-sm-10">
+                    <input id="ipt-fullname" type="text" class="form-control" id="inputfullname">
+                </div>
             </div>
-            <div class="flex justify-center mb-3 mt-3">
-                <h4>TRƯỜNG THPT CHUYÊN HÀ NỘI - AMSTERDAM NĂM HỌC 2021 – 2022</h4>
+            <div class="row mb-3">
+                <label for="inputphone" class="col-sm-2 col-form-label">Số điện thoại(*)</label>
+                <div class="col-sm-10">
+                    <input id="ipt-phone" class="form-control" type="text" id="inputphone">
+                </div>
             </div>
-
-            <div class="flex justify-center mb-3 mt-3">
-                <img src="{{URL::asset('/storage/logo.jpg')}}" alt="profile Pic" height="200" width="200">
+            <div class="row mb-3">
+                <label for="inputdob" class="col-sm-2 col-form-label">Ngày sinh</label>
+                <div class="col-sm-10">
+                    <input id="ipt-dob" class="form-control" id="inputdob" data-inputmask="'alias': 'date'">
+                </div>
             </div>
+            <div class="flex justify-center">
+                <button class="btn btn-primary" id="btn-search">Tra cứu</button>
+            </div>
+        </form>
 
-            <form method="POST" action="/search">
-                @csrf
-                <div class="row mb-3">
-                    <label for="inputfullname" class="col-sm-2 col-form-label">Họ tên học sinh</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputfullname">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputdob" class="col-sm-2 col-form-label">Ngày sinh</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" id="inputdob" data-inputmask="'alias': 'date'">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputphone" class="col-sm-2 col-form-label">Số điện thoại</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="text" id="inputphone">
-                    </div>
-                </div>
+        @include('result')
 
-                <div class="flex justify-center">
-                    <button class="btn btn-primary">Tra cứu</button>
-                </div>
-            </form>
+        <div id="no_result">
+            <p class="text-muted text-center mt-4">Rất tiếc, chúng tôi không tìm thấy thông tin học sinh phù hợp. Vui lòng thử lại.</p>
+        </div>
 
-
-            <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                    Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                </div>
+        <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
+            <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
+                Monster. Inc
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $(":input").inputmask();
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type='text/javascript'
+        src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $(":input").inputmask();
+
+        $("#result").hide();
+        $("#no_result").hide();
+
+        $("#btn-search").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                method: "POST",
+                url: "http://localhost/api/search",
+                data: {
+                    fullname: $("#ipt-fullname").val(),
+                    dob: $("#ipt-dob").val(),
+                    phone: $("#ipt-phone").val(),
+                },
+                beforeSend: function (xhr) {
+                    $("#result").hide();
+                    $("#no_result").hide();
+                }
+            }).done(function (res) {
+                const student = res.data;
+                $("#result").show();
+                for (let propertyName in student) {
+                    if (student.hasOwnProperty(propertyName)) {
+                        $(`#${propertyName}`).text(student[propertyName]);
+                    }
+                }
+            }).fail(function () {
+                $("#no_result").show();
+            });
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>

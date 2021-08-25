@@ -34,6 +34,7 @@ services:
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+            MYSQL_ROOT_PASSWORDL: 'root'
         volumes:
             - 'sailmysql:/var/lib/mysql'
         networks:
@@ -41,10 +42,10 @@ services:
         healthcheck:
           test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
           retries: 3
-          timeout: 5s    
+          timeout: 5s
 networks:
     sail:
         driver: bridge
 volumes:
     sailmysql:
-        driver: local    
+        driver: local

@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('ma_hoc_sinh');
             $table->string('ho_ten');
             $table->string('gioi_tinh');
-            $table->timestamp('ngay_sinh');
+            $table->timestamp('ngay_sinh')->nullable();
             $table->string('noi_sinh');
             $table->string('dan_toc');
             $table->string('thanh_pho');
@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('xa_phuong');
             $table->string('pho_thon');
             $table->string('nha');
-            $table->string('dien_thoai');
+            $table->string('dien_thoai')->unique();
             $table->string('email');
             $table->string('phong_gd');
             $table->string('tieu_hoc');
@@ -43,17 +43,24 @@ class CreateUsersTable extends Migration
             $table->float('tv2');
             $table->float('toan3');
             $table->float('tv3');
+            $table->float('ta3');
             $table->float('toan4');
             $table->float('tv4');
+            $table->float('ta4');
+            $table->float('kh4');
+            $table->float('sd4');
             $table->float('toan5');
             $table->float('tv5');
+            $table->float('ta5');
+            $table->float('kh5');
+            $table->float('sd5');
             $table->float('tong');
             $table->string('dien_uu_tien');
             $table->float('diem_uu_tien');
             $table->string('giai');
             $table->float('diem_giai');
             $table->string('cac_giai');
-            $table->float('diem_xet_tuyen');        
+            $table->float('diem_xet_tuyen');
             $table->timestamps();
         });
     }
@@ -65,6 +72,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('students');
     }
 }
