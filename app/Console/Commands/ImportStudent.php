@@ -6,8 +6,6 @@ use App\Models\Student;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Exception;
-use PHPUnit\Framework\ExpectationFailedException;
 
 class ImportStudent extends Command
 {
@@ -20,10 +18,8 @@ class ImportStudent extends Command
         parent::__construct();
     }
 
-    public function handle()
+    private function v1($filename)
     {
-        DB::table('students')->delete();
-        $filename = $this->argument('filename');
         $file = fopen($filename, "r");
         $lineNumber = 0;
         while (!feof($file)) {
@@ -57,6 +53,95 @@ class ImportStudent extends Command
             }
         }
         fclose($file);
+    }
+
+    public function v2($filename)
+    {
+        $t = hrtime(true);
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+        $highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
+        $range = "A5:AU{$highestRow}";
+        $dataArray = $spreadsheet->getActiveSheet()
+            ->rangeToArray(
+                $range,
+                null,
+                false,
+                true,
+                false
+            );
+        $result = [
+            'time' => 0,
+            'success' => 0,
+            'error' => 0,
+            'total' => 0,
+        ];
+        foreach ($dataArray as $lineNumber => $line) {
+            $result['total']++;
+            for ($i = 0; $i < count(Student::MAP_FIELD); $i++) {
+                $dataLine = $line[$i] ?? '';
+                switch (Student::MAP_FIELD[$i]) {
+                    case 'stt':
+                        break;
+                    case 'gioi_tinh':
+                        $student[Student::MAP_FIELD[$i]] = empty($dataLine) ? 'Nam' : 'Nu';
+                        break;
+                    case 'ngay_sinh':
+                        $dateString = trim($dataLine);
+                        $student[Student::MAP_FIELD[$i]] = empty($dateString) ? null : Carbon::createFromFormat('d/m/Y', $dataLine);
+                        break;
+                    case 'toan1':
+                    case 'tv1':
+                    case 'toan2':
+                    case 'tv2':
+                    case 'toan3':
+                    case 'tv3':
+                    case 'ta3':
+                    case 'toan4':
+                    case 'tv4':
+                    case 'ta4':
+                    case 'kh4':
+                    case 'sd4':
+                    case 'toan5':
+                    case 'tv5':
+                    case 'ta5':
+                    case 'kh5':
+                    case 'sd5':
+                    case 'tong':
+                    case 'diem_uu_tien':
+                    case 'diem_giai':
+                    case 'diem_xet_tuyen':
+                        $student[Student::MAP_FIELD[$i]] = empty($dataLine) ? 0 : $dataLine;
+                        break;
+                    default:
+                        $student[Student::MAP_FIELD[$i]] = $dataLine;
+                }
+            }
+            $student['email'] = '';
+            $student['ma_ho_so'] = '';
+            try {
+                Student::create($student);
+                $result['success']++;
+            } catch (\Exception $exception) {
+                $result['error']++;
+                $this->warn("Line {$lineNumber}: Error");
+            }
+        }
+        $t2 = hrtime(true);
+
+        $result['time'] = ($t2 - $t) / 1e+9;
+        return $result;
+
+    }
+
+    public function handle()
+    {
+        DB::table('students')->delete();
+        $filename = $this->argument('filename');
+        $r = $this->v2($filename);
+        $this->info("Total process: {$r['total']}");
+        $this->info("Total success: {$r['success']}");
+        $this->warn("Total error: {$r['error']}");
+        $this->info("Time: {$r['time']}");
         return 0;
     }
 }

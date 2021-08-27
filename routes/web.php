@@ -17,4 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/import', [\App\Http\Controllers\Controller::class, 'import']);
+Route::get('/import', function () {
+    return view('import');
+});

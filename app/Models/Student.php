@@ -2,12 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class Student extends Model
 {
@@ -63,7 +58,8 @@ class Student extends Model
     ];
 
     const MAP_FIELD = [
-        'ma_ho_so',
+        'stt',
+//        'ma_ho_so',
         'ma_hoc_sinh',
         'ho_ten',
         'gioi_tinh',
@@ -76,7 +72,7 @@ class Student extends Model
         'pho_thon',
         'nha',
         'dien_thoai',
-        'email',
+//        'email',
         'phong_gd',
         'tieu_hoc',
         'L5',

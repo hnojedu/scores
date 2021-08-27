@@ -407,51 +407,27 @@
 <div class="relative flex justify-center min-h-screen bg-gray-100 sm:items-center py-4 sm:pt-0">
     <div class="max-w-6xl px-4 py-2 mx-auto sm:px-6 lg:px-8 min-h-screen flex-grow-1">
         <div class="flex flex-column justify-center mb-3 mt-3">
-            <h3 class="text-center">TRA CỨU THÔNG TIN TUYỂN SINH VÀO LỚP 6</h3>
-            <h5 class="text-center">Trường THPT Chuyên Hà Nội - Amsterdam năm học 2021 – 2022</h5>
+            <h3 class="text-center">TRA CỨU THÔNG TIN TUYỂN SINH VÀO LỚP 6 - NHẬP DỮ LIỆU HỌC SINH</h3>
         </div>
 
         <div class="flex justify-center mb-3 mt-3">
             <img src="{{URL::asset('/storage/logo.jpg')}}" alt="profile Pic" height="100" width="100">
         </div>
 
-        <form method="POST" action="/search" accept-charset="utf-8">
+        <form method="POST" action="/search" enctype="multipart/form-data" accept-charset="utf-8">
             @csrf
             <div class="row mb-3">
-                <label for="ipt-fullname" class="col-sm-2 col-form-label">Họ tên học sinh(*)</label>
+                <label for="ipt-students" class="col-sm-2 col-form-label">File CSV(*)</label>
                 <div class="col-sm-8">
-                    <input id="ipt-fullname" type="text" class="form-control" required>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="ipt-phone" class="col-sm-2 col-form-label">Số điện thoại(*)</label>
-                <div class="col-sm-8">
-                    <input id="ipt-phone" type="tel" class="form-control" pattern="0[0-9]{9}" required>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="ipt-dob" class="col-sm-2 col-form-label">Ngày sinh</label>
-                <div class="col-sm-8">
-                    <input id="ipt-dob" class="form-control" data-inputmask="'alias': 'date'">
+                    <input type="file" class="form-control-file" id="ipt-students">
                 </div>
             </div>
             <div class="flex justify-center">
-                <button class="btn btn-primary" id="btn-search">Tra cứu</button>
+                <button class="btn btn-primary" id="btn-import">
+                    Lưu lại
+                </button>
             </div>
         </form>
-
-        @include('result')
-
-        <div id="no_result" class="flex flex-column alert alert-secondary mt-3 hidden" role="alert">
-            <p class="text-muted text-center mt-4">
-                Rất tiếc, chúng tôi không tìm thấy thông tin học sinh phù hợp. Vui lòng kiểm tra lại các thông tin:
-            </p>
-            <ul>
-                <li>Họ tên tiếng Việt có dấu (bắt buộc)</li>
-                <li>Số điện thoại 10 số (bắt buộc)</li>
-                <li>Ngày sinh theo định dạng ngày/tháng/năm. Ví dụ: 02/09/2003</li>
-            </ul>
-        </div>
 
         <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
             <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
@@ -469,34 +445,32 @@
         crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        $("#ipt-dob").inputmask();
-
-        $("#btn-search").click(function (e) {
+        $("#btn-import").click(function (e) {
             e.preventDefault();
-            $.ajax({
-                method: "POST",
-                url: "<?= config('app.url') . '/api/search'; ?>",
-                data: {
-                    fullname: $("#ipt-fullname").val(),
-                    dob: $("#ipt-dob").val(),
-                    phone: $("#ipt-phone").val(),
-                },
-                beforeSend: function (xhr) {
-                    $("#result").hide();
-                    $("#no_result").hide();
-                }
-            }).done(function (res) {
-                const student = res.data;
-                $("#result").show();
-                for (let propertyName in student) {
-                    if (student.hasOwnProperty(propertyName)) {
-                        const insertText = student[propertyName] == 0 ? '' : student[propertyName];
-                        $(`#${propertyName}`).text(insertText);
+            var fd = new FormData();
+            fd.append('secret', 'y3exdBGezj8FMqCB');
+            const files = $('#ipt-students')[0].files;
+            if (files.length > 0) {
+                fd.append('file_students', files[0]);
+                $.ajax({
+                    method: "POST",
+                    url: "<?= config('app.url') . '/api/import'; ?>",
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function (xhr) {
+                        $("#btn-import").html(
+                            '<span id="btn-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Lưu lại'
+                        ).attr('disabled', true);
                     }
-                }
-            }).fail(function () {
-                $("#no_result").show();
-            });
+                }).done(function (res) {
+                    alert(res.data);
+                    $("#btn-import").html('Lưu lại').attr('disabled', false);
+                }).fail(function () {
+                    $("#btn-import").html('Lưu lại').attr('disabled', false);
+                    alert('Có lỗi xảy ra! Vui lòng kiểm tra lại');
+                });
+            }
         });
     });
 </script>

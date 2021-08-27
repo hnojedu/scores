@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/search', [Controller::class, 'search']);
+Route::post('/import', [Controller::class, 'import']);
