@@ -110,4 +110,12 @@ class Student extends Model
         'cac_giai',
         'diem_xet_tuyen',
     ];
+
+    public function getNgaySinhAttribute($value)
+    {
+        if (!empty($value)) {
+            return date("d/m/Y", strtotime($value));
+        }
+        return '';
+    }
 }
