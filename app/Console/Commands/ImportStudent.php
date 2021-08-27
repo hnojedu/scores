@@ -6,6 +6,7 @@ use App\Models\Student;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ImportStudent extends Command
 {
@@ -123,7 +124,7 @@ class ImportStudent extends Command
                 $result['success']++;
             } catch (\Exception $exception) {
                 $result['error']++;
-                $this->warn("Line {$lineNumber}: Error");
+                Log::error($exception->getTraceAsString());
             }
         }
         $t2 = hrtime(true);
