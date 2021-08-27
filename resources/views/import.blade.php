@@ -417,7 +417,7 @@
         <form method="POST" action="/search" enctype="multipart/form-data" accept-charset="utf-8">
             @csrf
             <div class="row mb-3">
-                <label for="ipt-students" class="col-sm-2 col-form-label">File CSV(*)</label>
+                <label for="ipt-students" class="col-sm-2 col-form-label">File Excel (*.xls, *.xlsx)</label>
                 <div class="col-sm-8">
                     <input type="file" class="form-control-file" id="ipt-students">
                 </div>
