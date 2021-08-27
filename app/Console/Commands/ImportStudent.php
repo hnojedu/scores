@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Student;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 
@@ -21,7 +22,7 @@ class ImportStudent extends Command
 
     public function handle()
     {
-        $this->info("hello");
+        DB::table('students')->delete();
         $filename = $this->argument('filename');
         $file = fopen($filename, "r");
         $lineNumber = 0;

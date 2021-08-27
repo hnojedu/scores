@@ -19,4 +19,9 @@ class Controller extends BaseController
         }
         return response()->json(['data' => $student], 200);
     }
+
+    public function import(Request $request)
+    {
+
+    }
 }
