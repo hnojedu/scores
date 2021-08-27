@@ -58,6 +58,7 @@ class ImportStudent extends Command
 
     public function v2($filename)
     {
+        DB::table('students')->delete();
         $t = hrtime(true);
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
         $highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
@@ -124,7 +125,8 @@ class ImportStudent extends Command
                 $result['success']++;
             } catch (\Exception $exception) {
                 $result['error']++;
-                Log::error($exception->getTraceAsString());
+                Log::error($exception->getMessage());
+                Log::debug($exception->getTraceAsString());
             }
         }
         $t2 = hrtime(true);
@@ -136,7 +138,6 @@ class ImportStudent extends Command
 
     public function handle()
     {
-        DB::table('students')->delete();
         $filename = $this->argument('filename');
         $r = $this->v2($filename);
         $this->info("Total process: {$r['total']}");
