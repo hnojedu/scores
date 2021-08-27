@@ -1,5 +1,17 @@
 <div id="result" class="flex flex-column mt-4 hidden">
     <h5>Kết quả tìm kiếm: <span id="ho_ten">-</span></h5>
+    <div>
+        <strong>Mã học sinh</strong>: <span id="ma_hoc_sinh">-</span>
+    </div>
+    <div>
+        <strong>Ngày sinh</strong>: <span id="ngay_sinh">-</span>
+    </div>
+    <div>
+        <strong>Lớp</strong>: <span id="L5">-</span>
+    </div>
+    <div>
+        <strong>Trường</strong>: <span id="tieu_hoc">-</span>
+    </div>
     <br>
     <strong>Bảng điểm</strong>
     <div class="table-responsive">
@@ -70,11 +82,19 @@
     </div>
 
     <div>
-        <strong>Diện ưu tiên</strong>: <span id="dien_uu_tien">-</span> <span id="diem_uu_tien">-</span>
+        <strong>Diện ưu tiên</strong>: <span id="dien_uu_tien">-</span>
     </div>
 
     <div>
-        <strong>Giải thưởng</strong>: <span id="giai">-</span> <span id="diem_giai">-</span>
+        <strong>Điểm ưu tiên</strong>: <span id="diem_uu_tien">-</span>
+    </div>
+
+    <div>
+        <strong>Giải thưởng cao nhất</strong>: <span id="giai">-</span>
+    </div>
+
+    <div>
+        <strong>Điểm khuyến khích</strong>: <span id="diem_giai">-</span>
     </div>
 
     <div>

@@ -490,7 +490,8 @@
                 $("#result").show();
                 for (let propertyName in student) {
                     if (student.hasOwnProperty(propertyName)) {
-                        $(`#${propertyName}`).text(student[propertyName]);
+                        const insertText = student[propertyName] == 0 ? '' : student[propertyName];
+                        $(`#${propertyName}`).text(insertText);
                     }
                 }
             }).fail(function () {
