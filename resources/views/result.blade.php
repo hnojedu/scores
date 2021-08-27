@@ -12,6 +12,9 @@
     <div>
         <strong>Trường</strong>: <span id="tieu_hoc">-</span>
     </div>
+    <div>
+        <strong>Phòng GD&ĐT</strong>: <span id="phong_gd">-</span>
+    </div>
     <br>
     <strong>Bảng điểm</strong>
     <div class="table-responsive">
@@ -78,7 +81,7 @@
     </div>
 
     <div>
-        <strong>Tổng điểm</strong>: <span id="tong">-</span>
+        <strong>Tổng điểm học tập</strong>: <span id="tong">-</span>
     </div>
 
     <div>
@@ -98,6 +101,6 @@
     </div>
 
     <div>
-        <strong>Điểm xét tuyển: <span id="diem_xet_tuyen">-</span></strong>
+        <strong>Tổng điểm xét tuyển: <span id="diem_xet_tuyen">-</span></strong>
     </div>
 </div>
