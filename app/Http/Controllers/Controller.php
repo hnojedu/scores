@@ -39,7 +39,7 @@ class Controller extends BaseController
         $path = Storage::putFile('public/students', $file);
         $absPath = Storage::path($path);
         $cmd = new ImportStudent();
-        $r = $cmd->v2($absPath);
+        $r = $cmd->v3($absPath);
         if ($r['total'] > 0) {
             $message = 'Tổng số dòng: ' . $r['total'] . '. Imported: ' . $r['success'] . '. Time: ' . $r['time'] . 's.';
         } else {
