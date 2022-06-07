@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Console\Commands\ImportStudent;
 use App\Models\Student;
+use App\Models\Student2;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
@@ -12,12 +13,19 @@ class Controller extends BaseController
 {
     public function search(Request $request)
     {
-        $student = Student::where('ho_ten', $request->input('fullname'))
-            ->where('dien_thoai', $request->input('phone'))
-            ->first();
-        if (empty($student)) {
+        $fullname = $request->input('fullname');
+        $studentCode = $request->input('studentcode');
+
+        if (empty($studentCode)) {
+            $student = Student2::where('ho_ten', $fullname)->get();
+        } else {
+            $student = Student2::where('ma_hoc_sinh', $studentCode)->where('ho_ten', $fullname)->get();
+        }
+
+        if ($student->isEmpty()) {
             return response()->json(null, 404);
         }
+
         return response()->json(['data' => $student], 200);
     }
 

@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Student;
+use App\Models\Student2;
 use Illuminate\Console\Command;
+use Illuminate\Log\Logger;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -136,10 +138,61 @@ class ImportStudent extends Command
 
     }
 
+    public function v3($filename)
+    {
+        DB::table('students2')->delete();
+        $t = hrtime(true);
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+        $highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
+        $range = "A6:V{$highestRow}";
+        $dataArray = $spreadsheet->getActiveSheet()
+            ->rangeToArray(
+                $range,
+                0,
+                true,
+                true,
+                false
+            );
+        $result = [
+            'time' => 0,
+            'success' => 0,
+            'error' => 0,
+            'total' => 0,
+        ];
+        foreach ($dataArray as $lineNumber => $line) {
+            Log::debug($line);
+            $result['total']++;
+            for ($i = 0; $i < count(Student2::MAP_FIELD); $i++) {
+                $dataLine = $line[$i] ?? '';
+                switch (Student2::MAP_FIELD[$i]) {
+                    case 'stt':
+                        break;                    
+                    default:
+                        $student[Student2::MAP_FIELD[$i]] = $dataLine;
+                }
+            }            
+            try {
+                Student2::create($student);
+                Log::debug($student);
+                $result['success']++;
+            } catch (\Exception $exception) {
+                $result['error']++;
+                Log::error($exception->getMessage());
+                Log::debug($exception->getTraceAsString());
+            }
+        }
+        $t2 = hrtime(true);
+
+        $result['time'] = ($t2 - $t) / 1e+9;
+        return $result;
+
+    }
+
+
     public function handle()
     {
         $filename = $this->argument('filename');
-        $r = $this->v2($filename);
+        $r = $this->v3($filename);
         $this->info("Total process: {$r['total']}");
         $this->info("Total success: {$r['success']}");
         $this->warn("Total error: {$r['error']}");
