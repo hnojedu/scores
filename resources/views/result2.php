@@ -34,6 +34,9 @@
     <div>
         <strong>Số điện thoại</strong>: <span class="dien_thoai">-</span>
     </div>
+    <div>
+        <strong>Ghi chú</strong>: <span class="ghi_chu">-</span>
+    </div>
     <br>
     <strong>Điểm sơ tuyển vòng 1</strong>
     <div class="table-responsive">

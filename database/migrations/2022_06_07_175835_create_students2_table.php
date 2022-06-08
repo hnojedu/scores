@@ -27,7 +27,7 @@ class CreateStudents2Table extends Migration
             $table->string('gioi_tinh');
             $table->string('noi_sinh');
             $table->string('dan_toc');
-            $table->string('ho_khau_thuong_tru');            
+            $table->string('ho_khau_thuong_tru');
             $table->string('dien_thoai');
             $table->float('diem_nam_1');
             $table->float('diem_nam_2');
@@ -36,7 +36,8 @@ class CreateStudents2Table extends Migration
             $table->float('diem_nam_5');
             $table->float('tong_diem_5_nam');
             $table->float('diem_uu_tien');
-            $table->float('tong_diem_so_tuyen');            
+            $table->float('tong_diem_so_tuyen');
+            $table->text('ghi_chu');
             $table->timestamps();
         });
     }

@@ -34,6 +34,7 @@ class Student2 extends Model
         'tong_diem_5_nam',
         'diem_uu_tien',
         'tong_diem_so_tuyen',
+        'ghi_chu',
     ];
 
     const MAP_FIELD = [
@@ -59,6 +60,7 @@ class Student2 extends Model
         'tong_diem_5_nam',
         'diem_uu_tien',
         'tong_diem_so_tuyen',
+        'ghi_chu',
     ];
 
     public function getNgayRaDoiAttribute($value)
