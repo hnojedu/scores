@@ -23,6 +23,7 @@ class CreateStudents2Table extends Migration
             $table->tinyInteger('ngay_sinh');
             $table->tinyInteger('thang_sinh');
             $table->smallInteger('nam_sinh');
+            $table->timestamp('ngay_ra_doi')->nullable();
             $table->string('gioi_tinh');
             $table->string('noi_sinh');
             $table->string('dan_toc');

@@ -160,20 +160,19 @@ class ImportStudent extends Command
             'total' => 0,
         ];
         foreach ($dataArray as $lineNumber => $line) {
-            Log::debug($line);
             $result['total']++;
             for ($i = 0; $i < count(Student2::MAP_FIELD); $i++) {
                 $dataLine = $line[$i] ?? '';
                 switch (Student2::MAP_FIELD[$i]) {
                     case 'stt':
-                        break;                    
+                        break;
                     default:
                         $student[Student2::MAP_FIELD[$i]] = $dataLine;
                 }
             }            
             try {
-                Student2::create($student);
-                Log::debug($student);
+                $student['ngay_ra_doi'] = Carbon::create($student['nam_sinh'], $student['thang_sinh'], $student['ngay_sinh']); 
+                Student2::create($student); 
                 $result['success']++;
             } catch (\Exception $exception) {
                 $result['error']++;

@@ -20,6 +20,7 @@ class Student2 extends Model
         'ngay_sinh',
         'thang_sinh',
         'nam_sinh',
+        'ngay_ra_doi',
         'gioi_tinh',    
         'noi_sinh',
         'dan_toc',
@@ -59,4 +60,12 @@ class Student2 extends Model
         'diem_uu_tien',
         'tong_diem_so_tuyen',
     ];
+
+    public function getNgayRaDoiAttribute($value)
+    {
+        if (!empty($value)) {
+            return date("d/m/Y", strtotime($value));
+        }
+        return '';
+    }
 }

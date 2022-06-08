@@ -8,7 +8,7 @@
         <strong>Mã học sinh</strong>: <span class="ma_hoc_sinh">-</span>
     </div>
     <div>
-        <strong>Ngày sinh</strong>: <span class="ngay_sinh">-</span> / <span class="thang_sinh">-</span> / <span class="nam_sinh">-</span>
+        <strong>Ngày sinh</strong>: <span class="ngay_ra_doi">-</span>
     </div>
     <div>
         <strong>Lớp</strong>: <span class="lop">-</span>

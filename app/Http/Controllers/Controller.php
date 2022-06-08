@@ -19,7 +19,7 @@ class Controller extends BaseController
         if (empty($studentCode)) {
             $student = Student2::where('ho_ten', $fullname)->get();
         } else {
-            $student = Student2::where('ma_hoc_sinh', $studentCode)->where('ho_ten', $fullname)->get();
+            $student = Student2::where('ma_hoc_sinh', $studentCode)->orWhere('ho_ten', $fullname)->get();
         }
 
         if ($student->isEmpty()) {
