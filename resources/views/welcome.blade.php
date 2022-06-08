@@ -466,7 +466,7 @@
 
         $("#btn-search").click(function (e) {
             e.preventDefault();
-            $('#result').html('');
+            $('#result').html('<h5 id="count-res">Đã tìm thấy <span id="so_luong">-</span> bộ hồ sơ</h5>');
             $.ajax({
                 method: "POST",
                 url: "<?= config('app.url') . '/api/search'; ?>",
@@ -479,8 +479,7 @@
                     $("#no_result").hide();
                 }
             }).done(function (res) {
-                const students = res.data;     
-                $("#count-res").appendTo("#result");
+                const students = res.data;
                 $("#so_luong").text(students.length);
                 students.forEach((student, idx) => {
                     $("#ele-result").clone().addClass('result' + idx).addClass('result-element').appendTo("#result");
