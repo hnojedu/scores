@@ -479,7 +479,8 @@
                     $("#no_result").hide();
                 }
             }).done(function (res) {
-                const students = res.data;                
+                const students = res.data;     
+                $("#so_luong").text(students.length);           
                 students.forEach((student, idx) => {
                     $("#ele-result").clone().addClass('result' + idx).addClass('result-element').appendTo("#result");
                     for (let propertyName in student) {

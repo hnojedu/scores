@@ -1,5 +1,5 @@
-<div id="result">
-    
+<div id="result" class="hidden">
+    <h5>Đã tìm thấy <span class="so_luong">-</span> bộ hồ sơ</h5>
 </div>
 
 <div id="ele-result" class="flex flex-column mt-4 hidden">
