@@ -480,7 +480,8 @@
                 }
             }).done(function (res) {
                 const students = res.data;     
-                $("#so_luong").text(students.length);           
+                $("#count-res").appendTo("#result");
+                $("#so_luong").text(count(students));
                 students.forEach((student, idx) => {
                     $("#ele-result").clone().addClass('result' + idx).addClass('result-element').appendTo("#result");
                     for (let propertyName in student) {
