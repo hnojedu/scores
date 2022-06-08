@@ -17,6 +17,9 @@
         <strong>Trường</strong>: <span class="truong_tieu_hoc">-</span>
     </div>
     <div>
+        <strong>Quận/huyện</strong>: <span class="quan_huyen">-</span>
+    </div>
+    <div>
         <strong>Giới tính</strong>: <span class="gioi_tinh">-</span>
     </div>
     <div>

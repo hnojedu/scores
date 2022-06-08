@@ -418,9 +418,9 @@
         <form method="POST" action="/search" accept-charset="utf-8">
             @csrf
             <div class="row mb-3">
-                <label for="ipt-fullname" class="col-sm-2 col-form-label">Họ tên học sinh(*)</label>
+                <label for="ipt-fullname" class="col-sm-2 col-form-label">Họ tên học sinh</label>
                 <div class="col-sm-8">
-                    <input id="ipt-fullname" type="text" class="form-control" required>
+                    <input id="ipt-fullname" type="text" class="form-control">
                 </div>
             </div>
             <div class="row mb-3">
@@ -481,14 +481,14 @@
             }).done(function (res) {
                 const students = res.data;                
                 students.forEach((student, idx) => {
-                    $("#ele-result").clone().addClass('result' + student['ma_hoc_sinh']).addClass('result-element').appendTo("#result");
+                    $("#ele-result").clone().addClass('result' + idx).addClass('result-element').appendTo("#result");
                     for (let propertyName in student) {
                         if (student.hasOwnProperty(propertyName)) {
                             const insertText = student[propertyName] == 0 ? '' : student[propertyName];
-                            $(`.result${student['ma_hoc_sinh']} .${propertyName}`).text(insertText);
+                            $(`.result${idx} .${propertyName}`).text(insertText);
                         }
                     }
-                    $(`.result${student['ma_hoc_sinh']}`).show();
+                    $(`.result${idx}`).show();
                 });
                 $('#result').show();
             }).fail(function () {
