@@ -10,7 +10,7 @@ Requirements:
 0. Clone projects and prepare vendor
 
 ```bash
-git clone https://github.com/anhcx0209/scores.git
+git clone git@github.com:hnojedu/scores.git
 cd scores
 mkdir -p ./vendor/laravel
 ```
