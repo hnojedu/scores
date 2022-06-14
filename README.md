@@ -1,6 +1,6 @@
 # Import and search scores
 
-## How to development (docker way)
+## How to set up local (docker way)
 
 Requirements:
 
