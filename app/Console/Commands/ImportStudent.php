@@ -144,7 +144,7 @@ class ImportStudent extends Command
         $t = hrtime(true);
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
         $highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
-        $range = "A6:W{$highestRow}";
+        $range = "A6:AA{$highestRow}";
         $dataArray = $spreadsheet->getActiveSheet()
             ->rangeToArray(
                 $range,
