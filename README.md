@@ -32,6 +32,7 @@ Changed if needed:
 * APP_PORT: port to run page
 * FORWARD_DB_PORT: port to access mysql via host machine
 * DB_PASSWORD: root password
+* APP_URL: ensure it's sync with APP_PORT, or FE can not call API
 
 2. Start docker-compose
 
@@ -48,16 +49,7 @@ Changed if needed:
 ```
 
 
-4. Install app
-
-```bash
-./vendor/laravel/sail/bin/sail composer install
-
-./vendor/laravel/sail/bin/sail php artisan key:generate
-```
-
-
-5. create database and migrage
+4. create database and migrage
 
 ```bash
 docker exec scores-mysql-1 mysql -uroot -proot -e "CREATE DATABASE scores CHARACTER SET utf8mb4"
@@ -65,11 +57,13 @@ docker exec scores-mysql-1 mysql -uroot -proot -e "CREATE DATABASE scores CHARAC
 ./vendor/laravel/sail/bin/sail php artisan migrate
 ```
 
-6. Recreate app. Done
+5. Recreate app. Done
 
 ```bash
 ./vendor/laravel/sail/bin/sail up -d
 ```
+
+App run at (by default): http://localhost:8082
 
 
 ## Deployments
