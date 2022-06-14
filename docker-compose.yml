@@ -34,7 +34,6 @@ services:
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-            MYSQL_ROOT_PASSWORDL: 'root'
         volumes:
             - 'sailmysql:/var/lib/mysql'
         networks:
