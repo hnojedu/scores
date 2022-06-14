@@ -4,9 +4,22 @@
 
 <div id="ele-result" class="flex flex-column mt-4 hidden">
     <h5>Kết quả tìm kiếm: <span class="ho_ten">-</span></h5>
-    <div>
+    <div class="text-rose-500">
         <strong>Mã học sinh</strong>: <span class="ma_hoc_sinh">-</span>
     </div>
+
+    <div class="text-rose-500">
+        <strong>Số báo danh</strong>: <span class="so_bao_danh">-</span>
+    </div>
+
+    <div class="text-rose-500">
+        <strong>Phòng thi</strong>: <span class="phong_thi">-</span>
+    </div>
+
+    <div class="text-rose-500">
+        <strong>Địa điểm thi</strong>: <span class="dia_diem_thi">-</span>
+    </div>
+
     <div>
         <strong>Ngày sinh</strong>: <span class="ngay_ra_doi">-</span>
     </div>

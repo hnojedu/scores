@@ -38,6 +38,9 @@ class CreateStudents2Table extends Migration
             $table->float('diem_uu_tien');
             $table->float('tong_diem_so_tuyen');
             $table->text('ghi_chu');
+            $table->string('so_bao_danh');
+            $table->string('phong_thi');
+            $table->string('dia_diem_thi');
             $table->timestamps();
         });
     }

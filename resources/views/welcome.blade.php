@@ -270,6 +270,10 @@
             color: rgba(26, 32, 44, var(--text-opacity))
         }
 
+        .text-rose-500 {
+            color: rgb(244 63 94);
+        }
+
         .underline {
             text-decoration: underline
         }
