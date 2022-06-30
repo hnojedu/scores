@@ -495,8 +495,7 @@
                     $("#ele-result").clone().addClass('result' + idx).addClass('result-element').appendTo("#result");
                     for (let propertyName in student) {
                         if (student.hasOwnProperty(propertyName)) {
-                            const insertText = student[propertyName] == 0 ? '' : student[propertyName];
-                            $(`.result${idx} .${propertyName}`).text(insertText);
+                            $(`.result${idx} .${propertyName}`).text(student[propertyName]);
                         }
                     }
                     $(`.result${idx}`).show();
