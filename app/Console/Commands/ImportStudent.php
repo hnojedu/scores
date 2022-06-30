@@ -216,8 +216,6 @@ class ImportStudent extends Command
                 switch (Student3::MAP_FIELD[$i]) {
                     case 'stt':
                         break;
-                    case 'tieng_viet':
-                        $student[Student3::MAP_FIELD[$i]] = $dataLine == 'Vắng';
                     default:
                         $student[Student3::MAP_FIELD[$i]] = $dataLine;
                 }
