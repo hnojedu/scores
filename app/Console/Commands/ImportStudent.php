@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Student;
 use App\Models\Student2;
+use App\Models\Student3;
 use Illuminate\Console\Command;
 use Illuminate\Log\Logger;
 use Illuminate\Support\Carbon;
@@ -169,10 +170,60 @@ class ImportStudent extends Command
                     default:
                         $student[Student2::MAP_FIELD[$i]] = $dataLine;
                 }
-            }            
+            }
             try {
-                $student['ngay_ra_doi'] = Carbon::create($student['nam_sinh'], $student['thang_sinh'], $student['ngay_sinh']); 
-                Student2::create($student); 
+                $student['ngay_ra_doi'] = Carbon::create($student['nam_sinh'], $student['thang_sinh'], $student['ngay_sinh']);
+                Student2::create($student);
+                $result['success']++;
+            } catch (\Exception $exception) {
+                $result['error']++;
+                Log::error($exception->getMessage());
+                Log::debug($exception->getTraceAsString());
+            }
+        }
+        $t2 = hrtime(true);
+
+        $result['time'] = ($t2 - $t) / 1e+9;
+        return $result;
+
+    }
+
+    public function v4($filename)
+    {
+        DB::table('student3s')->delete();
+        $t = hrtime(true);
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+        $highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
+        $range = "A2:G{$highestRow}";
+        $dataArray = $spreadsheet->getActiveSheet()
+            ->rangeToArray(
+                $range,
+                0,
+                true,
+                true,
+                false
+            );
+        $result = [
+            'time' => 0,
+            'success' => 0,
+            'error' => 0,
+            'total' => 0,
+        ];
+        foreach ($dataArray as $lineNumber => $line) {
+            $result['total']++;
+            for ($i = 0; $i < count(Student3::MAP_FIELD); $i++) {
+                $dataLine = $line[$i] ?? '';
+                switch (Student3::MAP_FIELD[$i]) {
+                    case 'stt':
+                        break;
+                    case 'tieng_viet':
+                        $student[Student3::MAP_FIELD[$i]] = $dataLine == 'Vắng';
+                    default:
+                        $student[Student3::MAP_FIELD[$i]] = $dataLine;
+                }
+            }
+            try {
+                Student3::create($student);
                 $result['success']++;
             } catch (\Exception $exception) {
                 $result['error']++;
@@ -191,7 +242,7 @@ class ImportStudent extends Command
     public function handle()
     {
         $filename = $this->argument('filename');
-        $r = $this->v3($filename);
+        $r = $this->v4($filename);
         $this->info("Total process: {$r['total']}");
         $this->info("Total success: {$r['success']}");
         $this->warn("Total error: {$r['error']}");

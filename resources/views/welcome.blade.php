@@ -421,32 +421,38 @@
 
         <form method="POST" action="/search" accept-charset="utf-8">
             @csrf
-            <div class="row mb-3">
-                <label for="ipt-fullname" class="col-sm-2 col-form-label">Họ tên học sinh</label>
-                <div class="col-sm-8">
-                    <input id="ipt-fullname" type="text" class="form-control">
-                </div>
-            </div>
+{{--            <div class="row mb-3">--}}
+{{--                <label for="ipt-fullname" class="col-sm-2 col-form-label">Họ tên học sinh</label>--}}
+{{--                <div class="col-sm-8">--}}
+{{--                    <input id="ipt-fullname" type="text" class="form-control">--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="row mb-3">
                 <label for="ipt-student-code" class="col-sm-2 col-form-label">Mã học sinh</label>
                 <div class="col-sm-8">
-                    <input id="ipt-student-code" type="tel" class="form-control" pattern="0[0-9]{9}">
+                    <input id="ipt-student-code" type="tel" class="form-control">
                 </div>
-            </div>            
+            </div>
+            <div class="row mb-3">
+                <label for="ipt-sbd" class="col-sm-2 col-form-label">Số báo danh</label>
+                <div class="col-sm-8">
+                    <input id="ipt-sbd" type="sbd" class="form-control">
+                </div>
+            </div>
             <div class="flex justify-center">
                 <button class="btn btn-primary" id="btn-search">Tra cứu</button>
             </div>
         </form>
 
-        @include('result2')
+        @include('result3')
 
         <div id="no_result" class="flex flex-column alert alert-secondary mt-3 hidden" role="alert">
             <p class="text-muted text-center mt-4">
                 Rất tiếc, chúng tôi không tìm thấy thông tin học sinh phù hợp. Vui lòng kiểm tra lại các thông tin:
             </p>
             <ul>
-                <li>Họ tên tiếng Việt có dấu (bắt buộc)</li>
-                <li>Mã học sinh</li>
+                <li>Mã học sinh (bắt buộc)</li>
+                <li>Số báo danh</li>
             </ul>
         </div>
 
@@ -475,7 +481,7 @@
                 method: "POST",
                 url: "<?= config('app.url') . '/api/search'; ?>",
                 data: {
-                    fullname: $("#ipt-fullname").val(),                    
+                    sbd: $("#ipt-sbd").val(),
                     studentcode: $("#ipt-student-code").val(),
                 },
                 beforeSend: function (xhr) {
